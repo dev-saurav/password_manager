@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/widgets/search_bar.dart';
+import 'package:provider/provider.dart';
 import './widgets/grid_item_note.dart';
-import 'dummyData.dart';
+import './models/data.dart';
 
 void main() => runApp((MyApp()));
 
@@ -10,15 +12,23 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: MyHomePage(),
+      home: ChangeNotifierProvider(
+        create: (context) => DataModel(),
+        child: MyHomePage(),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  //var nt = Note();
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    final notes = Provider.of<DataModel>(context);
     return Scaffold(
       backgroundColor: Color(0xFF2C1DA9),
       floatingActionButton: FloatingActionButton(
@@ -67,25 +77,30 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: -20,
+                    top: -24,
                     child: Container(
-                      color: Colors.yellow,
-                      height: 50,
-                      width: 100,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                      ),
+                      child: SearchBar(),
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(
                         top: 60, left: 50, right: 50, bottom: 10),
                     child: GridView.builder(
-                      itemCount: dummyNotes.length,
+                      itemCount: notes.getNotes.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 20,
                           mainAxisSpacing: 20),
                       itemBuilder: (BuildContext ctx, int i) => GridItem(
-                        gridTitle: dummyNotes[i].title,
-                        gridNote: dummyNotes[i].note,
+                        gridTitle: notes.getNotes[i].title,
+                        gridNote: notes.getNotes[i].note,
                       ),
                     ),
                   )
