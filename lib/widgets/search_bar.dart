@@ -19,25 +19,34 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     var notes = Provider.of<DataModel>(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: TextField(
-        controller: searchTerm,
-        autofocus: false,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: 'Search for a password',
-          suffixIcon: IconButton(
-            icon: Icon(Icons.cancel),
-            onPressed: () {
-              searchTerm.clear();
-              notes.clearSearchString();
-            },
-          ),
+    return Container(
+      width: 300,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(50),
         ),
-        onChanged: (newString) {
-          notes.setSearchString(searchTerm.text);
-        },
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        child: TextField(
+          controller: searchTerm,
+          autofocus: false,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'Search for a password',
+            suffixIcon: IconButton(
+              icon: Icon(Icons.cancel),
+              onPressed: () {
+                searchTerm.clear();
+                notes.clearSearchString();
+              },
+            ),
+          ),
+          onChanged: (newString) {
+            notes.setSearchString(searchTerm.text);
+          },
+        ),
       ),
     );
     ;

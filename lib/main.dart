@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/widgets/header.dart';
+import 'package:password_manager/widgets/noteGrid.dart';
 import 'package:password_manager/widgets/search_bar.dart';
 import 'package:provider/provider.dart';
-import './widgets/grid_item_note.dart';
 import './models/data.dart';
+import './Constants.dart';
 
 void main() => runApp((MyApp()));
 
@@ -28,11 +30,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final notes = Provider.of<DataModel>(context);
     return Scaffold(
-      backgroundColor: Color(0xFF2C1DA9),
+      backgroundColor: backgroundColorScreen,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFFFBAB45),
+        backgroundColor: floatingActionButtonColor,
         onPressed: () {},
         child: Icon(Icons.add),
       ),
@@ -41,25 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Expanded(
               flex: 1,
-              child: Container(
-                width: double.infinity,
-                margin: EdgeInsets.all(40),
-                decoration: BoxDecoration(
-                  color: Color(0xFF4934DD),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    "Notes Keep",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+              child: Header(),
             ),
             Expanded(
               flex: 2,
@@ -69,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                      color: Color(0xFF4934DD),
+                      color: appForegroundColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(60),
                         topRight: Radius.circular(60),
@@ -78,32 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Positioned(
                     top: -24,
-                    child: Container(
-                      width: 300,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
-                        ),
-                      ),
-                      child: SearchBar(),
-                    ),
+                    child: SearchBar(),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(
-                        top: 60, left: 50, right: 50, bottom: 10),
-                    child: GridView.builder(
-                      itemCount: notes.getNotes.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 20),
-                      itemBuilder: (BuildContext ctx, int i) => GridItem(
-                        gridTitle: notes.getNotes[i].title,
-                        gridNote: notes.getNotes[i].note,
-                      ),
-                    ),
-                  )
+                  NotesGrid(),
                 ],
               ),
             ),
