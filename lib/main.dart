@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/widgets/addNote.dart';
 import 'package:password_manager/widgets/header.dart';
 import 'package:password_manager/widgets/noteGrid.dart';
 import 'package:password_manager/widgets/search_bar.dart';
@@ -31,10 +32,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColorScreen,
+      backgroundColor: kbackgroundColorScreen,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: floatingActionButtonColor,
-        onPressed: () {},
+        backgroundColor: kfloatingActionButtonColor,
+        onPressed: () {
+          showModalBottomSheet(
+              backgroundColor: kdarkbackgroundColor,
+              context: context,
+              builder: (context) {
+                return AddNote();
+              });
+        },
         child: Icon(Icons.add),
       ),
       body: SafeArea(
@@ -52,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                      color: appForegroundColor,
+                      color: kappForegroundColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(60),
                         topRight: Radius.circular(60),

@@ -8,7 +8,7 @@ class Header extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.all(40),
       decoration: BoxDecoration(
-        color: appForegroundColor,
+        color: kappForegroundColor,
         borderRadius: BorderRadius.all(
           Radius.circular(20),
         ),
