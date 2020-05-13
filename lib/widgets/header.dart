@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../Constants.dart';
 
 class Header extends StatelessWidget {
+  final String headerString;
+  Header({this.headerString});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +17,7 @@ class Header extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          "Notes Keep",
+          headerString,
           style: TextStyle(
             fontSize: 30,
             color: Colors.white,

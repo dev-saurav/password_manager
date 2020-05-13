@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/widgets/addNote.dart';
-import 'package:password_manager/widgets/header.dart';
-import 'package:password_manager/widgets/noteGrid.dart';
-import 'package:password_manager/widgets/search_bar.dart';
+import 'package:password_manager/widgets/notes_grid_page.dart';
 import 'package:provider/provider.dart';
 import './models/data.dart';
 import './Constants.dart';
+import './widgets/check_pass_page.dart';
 
 void main() => runApp((MyApp()));
 
@@ -29,53 +28,108 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var pages = {
+    kPages.AddNotePage: AddNote(),
+    kPages.CheckPassPage: CheckPass(),
+    kPages.NoteGridPage: NotesGridPage(),
+  };
+  Widget currPage = null;
+  void changePage(Widget choosenPage) {
+    setState(() {
+      currPage = choosenPage;
+    });
+  }
+
+  @override
+  void initState() {
+    currPage = pages[kPages.NoteGridPage];
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kbackgroundColorScreen,
+      body: currPage,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: kfloatingActionButtonColor,
         onPressed: () {
-          showModalBottomSheet(
-              backgroundColor: kdarkbackgroundColor,
-              context: context,
-              builder: (context) {
-                return AddNote();
-              });
+          changePage(pages[kPages.AddNotePage]);
         },
         child: Icon(Icons.add),
       ),
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Header(),
-            ),
-            Expanded(
-              flex: 2,
-              child: Stack(
-                overflow: Overflow.visible,
-                alignment: Alignment.center,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      color: kappForegroundColor,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(60),
-                        topRight: Radius.circular(60),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: Container(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  changePage(pages[kPages.NoteGridPage]);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: Icon(
+                          Icons.dashboard,
+                          color: currPage == pages[kPages.NoteGridPage]
+                              ? kdarkbackgroundColor
+                              : Colors.grey,
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        'Notes',
+                        style: TextStyle(
+                          color: currPage == pages[kPages.NoteGridPage]
+                              ? kdarkbackgroundColor
+                              : Colors.grey,
+                        ),
+                      )
+                    ],
                   ),
-                  Positioned(
-                    top: -24,
-                    child: SearchBar(),
-                  ),
-                  NotesGrid(),
-                ],
+                ),
               ),
-            ),
-          ],
+              GestureDetector(
+                onTap: () {
+                  changePage(pages[kPages.CheckPassPage]);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: Icon(
+                          Icons.check,
+                          color: currPage == pages[kPages.CheckPassPage]
+                              ? kdarkbackgroundColor
+                              : Colors.grey,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        'Check Password',
+                        style: TextStyle(
+                          color: currPage == pages[kPages.CheckPassPage]
+                              ? kdarkbackgroundColor
+                              : Colors.grey,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
