@@ -48,17 +48,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
     return Scaffold(
       backgroundColor: kbackgroundColorScreen,
       body: currPage,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: kfloatingActionButtonColor,
-        onPressed: () {
-          changePage(pages[kPages.AddNotePage]);
-        },
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: keyboardIsOpened
+          ? null
+          : FloatingActionButton(
+              backgroundColor: kfloatingActionButtonColor,
+              onPressed: () {
+                changePage(pages[kPages.AddNotePage]);
+              },
+              child: Icon(Icons.add),
+            ),
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         child: Container(

@@ -80,6 +80,19 @@ class DataModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addNote(String noteText, String userText, String passText) {
+    _notes.insert(
+        0,
+        Note(
+          id: DateTime.now().toString(),
+          title: noteText,
+          note: passText,
+          category: Category.category1,
+          dateTime: DateTime.now(),
+        ));
+    notifyListeners();
+  }
+
   List<Note> get getNotes {
     if (_searchString == null) {
       return _notes;
