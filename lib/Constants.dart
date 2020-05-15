@@ -20,4 +20,5 @@ enum kPages {
   NoteGridPage,
   AddNotePage,
   CheckPassPage,
+  AddCreditCardPage
 }

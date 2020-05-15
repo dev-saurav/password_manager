@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/widgets/addNote.dart';
+import 'package:password_manager/widgets/add_credit_card_page.dart';
 import 'package:password_manager/widgets/notes_grid_page.dart';
 import 'package:provider/provider.dart';
 import './models/data.dart';
@@ -33,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
     kPages.AddNotePage: AddNote(),
     kPages.CheckPassPage: CheckPass(),
     kPages.NoteGridPage: NotesGridPage(),
+    kPages.AddCreditCardPage: AddCreditCardPage(),
   };
   Widget currPage = null;
   void changePage(Widget choosenPage) {
@@ -50,10 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       backgroundColor: kbackgroundColorScreen,
       body: currPage,
       //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: currPage == pages[kPages.AddNotePage]
+      floatingActionButton: currPage == pages[kPages.AddNotePage] ||
+              currPage == pages[kPages.AddCreditCardPage]
           ? null
           : FabCircularMenu(
               alignment: Alignment.bottomCenter,
@@ -69,7 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
               fabColor: kfloatingActionButtonColor,
               children: <Widget>[
                   FlatButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        changePage(pages[kPages.AddCreditCardPage]);
+                      },
                       textColor: Colors.white,
                       icon: Icon(Icons.credit_card),
                       label: Text("Add Card")),
