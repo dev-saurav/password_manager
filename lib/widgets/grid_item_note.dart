@@ -9,19 +9,8 @@ class GridItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black54,
-              blurRadius: 2.0, // has the effect of softening the shadow
-              spreadRadius: 2.0,
-              offset: Offset(
-                5.0,
-                5.0,
-              ) // has the effect of extending the shadow
-              )
-        ],
-      ),
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(20))),
       child: Column(
         children: <Widget>[
           Text(

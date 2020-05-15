@@ -288,7 +288,8 @@ class _AddNoteState extends State<AddNote> {
                                   ),
                                   child: Text("Add Password",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 15)),
+                                      style: TextStyle(
+                                          fontSize: 15, color: Colors.white)),
                                 ),
                                 onPressed: () {
                                   if (titleController.text.isEmpty) {

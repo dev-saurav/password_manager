@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import './models/data.dart';
 import './Constants.dart';
 import './widgets/check_pass_page.dart';
+import 'package:fab_circular_menu/fab_circular_menu.dart';
 
 void main() => runApp((MyApp()));
 
@@ -48,87 +49,108 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
     return Scaffold(
       backgroundColor: kbackgroundColorScreen,
       body: currPage,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: keyboardIsOpened
+      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: currPage == pages[kPages.AddNotePage]
           ? null
-          : FloatingActionButton(
-              backgroundColor: kfloatingActionButtonColor,
-              onPressed: () {
-                changePage(pages[kPages.AddNotePage]);
-              },
-              child: Icon(Icons.add),
-            ),
+          : FabCircularMenu(
+              alignment: Alignment.bottomCenter,
+              fabOpenIcon: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              fabCloseIcon: Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
+              ringColor: kfloatingActionButtonColor,
+              fabColor: kfloatingActionButtonColor,
+              children: <Widget>[
+                  FlatButton.icon(
+                      onPressed: () {},
+                      textColor: Colors.white,
+                      icon: Icon(Icons.credit_card),
+                      label: Text("Add Card")),
+                  FlatButton.icon(
+                      onPressed: () {},
+                      textColor: Colors.white,
+                      icon: Icon(Icons.note_add),
+                      label: Text("Add Note")),
+                  FlatButton.icon(
+                      onPressed: () {
+                        changePage(pages[kPages.AddNotePage]);
+                      },
+                      textColor: Colors.white,
+                      icon: Icon(
+                        Icons.verified_user,
+                        color: Colors.white,
+                      ),
+                      label: Text("Add Password")),
+                ]),
+
       bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
         shape: CircularNotchedRectangle(),
         child: Container(
-          height: 60,
+          height: 50,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               GestureDetector(
                 onTap: () {
                   changePage(pages[kPages.NoteGridPage]);
                 },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: Icon(
-                          Icons.dashboard,
-                          color: currPage == pages[kPages.NoteGridPage]
-                              ? kdarkbackgroundColor
-                              : Colors.grey,
-                        ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      child: Icon(
+                        Icons.dashboard,
+                        color: currPage == pages[kPages.NoteGridPage]
+                            ? kfloatingActionButtonColor
+                            : Colors.grey,
                       ),
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        'Notes',
-                        style: TextStyle(
-                          color: currPage == pages[kPages.NoteGridPage]
-                              ? kdarkbackgroundColor
-                              : Colors.grey,
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               GestureDetector(
                 onTap: () {
                   changePage(pages[kPages.CheckPassPage]);
                 },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: Icon(
-                          Icons.check,
-                          color: currPage == pages[kPages.CheckPassPage]
-                              ? kdarkbackgroundColor
-                              : Colors.grey,
-                        ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      child: Icon(
+                        Icons.check,
+                        color: currPage == pages[kPages.CheckPassPage]
+                            ? kfloatingActionButtonColor
+                            : Colors.grey,
                       ),
-                      SizedBox(
-                        height: 4,
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  changePage(pages[kPages.CheckPassPage]);
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      child: Icon(
+                        Icons.people,
+                        color: currPage == pages[kPages.CheckPassPage]
+                            ? kfloatingActionButtonColor
+                            : Colors.grey,
                       ),
-                      Text(
-                        'Check Password',
-                        style: TextStyle(
-                          color: currPage == pages[kPages.CheckPassPage]
-                              ? kdarkbackgroundColor
-                              : Colors.grey,
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],
